@@ -7,6 +7,7 @@ start = time.time()
 row_index = 1
 
 def format_value(value):
+    value = value.rstrip()
     try:
         fval = float(value)
         if fval.is_integer():
@@ -59,5 +60,5 @@ with open("POM3A.csv", "rb") as fp:
 
 end = time.time()
 
-print "=" * 40
+print "=" * 80
 print "Time taken: %f" %(end - start)
