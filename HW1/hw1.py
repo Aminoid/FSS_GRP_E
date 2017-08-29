@@ -28,7 +28,7 @@ def sanitize_line(line, f):
         row_index += 1
         temp += f.readline()
         temp = temp.split("#")[0]
-	# Removing white spaces before and after column values
+    # Removing white spaces before and after column values
     tokens = temp.split(",")
     str = ""
     for token in tokens:
