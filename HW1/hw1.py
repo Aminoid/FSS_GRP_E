@@ -7,7 +7,6 @@ start = time.time()
 row_index = 1
 
 def format_value(value):
-    value = value.rstrip()
     try:
         fval = float(value)
         if fval.is_integer():
@@ -29,8 +28,12 @@ def sanitize_line(line, f):
         row_index += 1
         temp += f.readline()
         temp = temp.split("#")[0]
-
-    return temp, f
+	# Removing white spaces before and after column values
+    tokens = temp.split(",")
+    str = ""
+    for token in tokens:
+        str += token.strip() + ","
+    return str[:-1], f
 
 with open("POM3A.csv", "rb") as fp:
     ignore_cols = []
@@ -60,5 +63,5 @@ with open("POM3A.csv", "rb") as fp:
 
 end = time.time()
 
-print "=" * 80
+print "=" * 40
 print "Time taken: %f" %(end - start)
