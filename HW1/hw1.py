@@ -51,7 +51,6 @@ with open("POM3A.csv", "rb") as fp:
         if line == '':
             break
         sanitized, fp = sanitize_line(line, fp)
-        print sanitized
         cols = sanitized.split(',')
         row = []
         if len(cols) != num_cols:
