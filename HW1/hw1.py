@@ -6,6 +6,10 @@ start = time.time()
 
 row_index = 1
 
+if len(sys.argv) != 2:
+    print "Usage: python hw1.py <csvfile>"
+    sys.exit(0)
+
 def format_value(value):
     try:
         fval = float(value)
@@ -35,7 +39,7 @@ def sanitize_line(line, f):
         str += token.strip() + ","
     return str[:-1], f
 
-with open("POM3A.csv", "rb") as fp:
+with open(sys.argv[1], "rb") as fp:
     ignore_cols = []
     num_cols = 0
 
