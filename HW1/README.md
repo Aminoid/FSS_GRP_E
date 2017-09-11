@@ -16,5 +16,5 @@ Download the [POM3A.csv][1] file and keep it in this folder only.
 File can be run using:
 
 ```python
-python hw1.py
+python hw1.py <csv_file>
 ```
