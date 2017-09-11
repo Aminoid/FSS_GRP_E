@@ -19,7 +19,7 @@ class Row:
         self.index = -1
 
     def __str__(self):
-        return "%s, id=%d" %(str(self.content), self.index)
+        return "cells=%s, id=%d" %(str(self.content), self.index)
 
 class Goal:
     def __init__(self):
