@@ -27,6 +27,12 @@ class Goal:
         self.weight = 0
         self.max = float("-inf")
         self.min = float("inf")
+        self.mean = 0
+        self.sd = 0
+        self.n = 0
+
+    def get_variance(self):
+        return (self.sd / (self.n - 1))
 
 header = Header()
 rows = []
@@ -62,13 +68,20 @@ def parse_header(index, value):
         header.syms.append(index)
 
 
-def max_min(content):
+def update_header(content):
     global header
 
     for i, goal in enumerate(header.goals):
         val = content[goal.index]
         goal.max = max(goal.max, val)
         goal.min = min(goal.min, val)
+
+        goal.n += 1
+        if goal.n == 1:
+            goal.mean = val
+        else:
+            goal.mean = goal.mean + (val - goal.mean) / goal.n
+            goal.sd = goal.sd + (val - goal.mean) ** 2
     return
 
 def dominate(x, y):
@@ -115,21 +128,21 @@ with open(sys.argv[1], "rb") as fp:
         for col in header.nums:
             row.content[col] = convert_to_num(row.content[col])
 
-        max_min(row.content)
+        update_header(row.content)
         rows.append(row)
 
     for index, row in enumerate(rows):
         row.rank = dom_rank(index, row)
 
-    sort = sorted(rows, key=lambda row: row.rank)
+    sort = sorted(rows, key=lambda row: -row.rank)
     print header
 
     # Top 5
-    for i in range(-5, 0):
+    for i in range(10):
         print sort[i]
 
     print "\n"
 
     # Bottom 5
-    for i in range(5):
+    for i in range(-10, 0):
         print sort[i]
