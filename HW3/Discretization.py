@@ -2,8 +2,11 @@ import Random as R
 import Num as N
 import Range as Ra
 
-def x(val):
-    return val
+def x(z):
+    return z[0]
+
+def y(z):
+    return z[-1]
 
 def klass(z):
   val = 0.0
@@ -19,11 +22,14 @@ if __name__ == "__main__":
     t, n = [], N.create()
     for _ in range(1,51):
         w = R.r()
-        N.update(n, klass(w))
-        t.append(w)
+        k = klass(w)
+        N.update(n, k)
+        t.append(list({w, k}))
+        #print(str(k))
     print("\nWe have many unsupervised ranges.")
     for j, one in enumerate(Ra.main(t, x)):
-        print("x", j+1, one)
+        print("x", j+1, str(one))
+        #print one
         #print("\nWe have fewer supervised ranges.")
         #for j, one in enumerate(SUPER(t, x, y))
         #print("super", j, one)
