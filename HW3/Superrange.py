@@ -1,13 +1,16 @@
 import math
 import Range as Ra
+from Lists import copy as lc
+import Num as NUM
+
 
 class Label:
     def __init__(self, nums, i):
         self.most = nums[i]
         self.label = i
 
-    def __str__(self):
-        return "most=%d, label=%d" % (self.most, self.label)
+        def __str__(self):
+            return "most=%d, label=%d" % (self.most, self.label)
 
 
 def labels(nums):
@@ -39,33 +42,46 @@ def above(x,y):
 def last(x):
     return x[len(x)-1]
 
-def main(things,x,y,   nump, lessp):
-    y = y or last # klass is last arg
-    # To Do
-    ##Correct this
-    nump = nump == nil and true or nump
-    lessp = lessp == nil and true or lessp
+def main(things,x,y,   nump=None, lessp=None):
+    y = y or last
+    if nump == None:
+        nump = True
+
+    if lessp == None:
+        lessp = True
+
+    ## To DO, check if correct
     better = lessp and below or above
-    # To Do
-    ##Correct this
-    what = nump and NUM or sym
-    z = nump and sd or ent
+    print nump
+    what = "sym"
+    z = ent
+    if nump == True:
+        what = NUM
+        z = sd
+    #z = nump and sd or ent
     breaks, ranges = [], Ra.main(things, x)
     def data(j):
-        return ranges[j]._all._all
+        return ranges[j-1]._all._all
 
     #To Do
     #Correct this
-    def copy(t):
-        return type(t) != 'table' and t or collect(t,copy)
 
-    def memo(here, stop, _memo, b4, inc):
+    def memo(here, stop, _memo, b4=None, inc=None):
         if (stop > here):
             inc = 1
         else:
             inc = -1
+        #print here
+        #print stop
         if (here != stop):
-            b4 = copy(memo((here + inc), stop, _memo))
+            print "inside"
+            m = memo(here + inc, stop, _memo)
+            print "after"
+            print m
+            b4 = lc(m)
+        print what
+        print b4
+        #print data(here)
         _memo[here] = what.updates(data(here), y, b4)
         return _memo[here]
 
@@ -84,8 +100,8 @@ def main(things,x,y,   nump, lessp):
             if (better(tmp, best)):
                 cut = j
                 best = tmp
-                lbest = copy(l)
-                rbest = copy(r)
+                lbest = lc(l)
+                rbest = lc(r)
         if (cut):
             bin = combine(lo, cut, lbest, bin, lvl + 1) + 1
             bin = combine(cut + 1, hi, rbest, bin, lvl + 1)
