@@ -1,35 +1,41 @@
-import Random as R
-import Num as N
-import Range as Ra
+import Range
+import Superrange
+import numpy as np
+
+np.random.seed(1)
+
+def nested_val(z):
+    v = 2*np.random.rand()/100
+
+    if z < 0.2:
+        v += 0.2
+    elif z < 0.6:
+        v += 0.6
+    else:
+        v += 0.9
+    return v
+
 
 def x(z):
     return z[0]
 
 def y(z):
-    return z[-1]
+    return z[1]
 
-def klass(z):
-  val = 0.0
-  if z < 0.2:
-    val = 0.2 + 2*R.r()/100
-  elif z < 0.6:
-    val = 0.6 + 2*R.r()/100
-  else:
-    val = 0.9 + 2*R.r()/100
-  return val
+lst = list(np.random.rand(50))
+for i, val in enumerate(lst):
+    lst[i] = [val, nested_val(val)]
 
-if __name__ == "__main__":
-    t, n = [], N.create()
-    for _ in range(1,51):
-        w = R.r()
-        k = klass(w)
-        N.update(n, k)
-        t.append(list({w, k}))
-        #print(str(k))
-    print("\nWe have many unsupervised ranges.")
-    for j, one in enumerate(Ra.main(t, x)):
-        print("x", j+1, str(one))
-        #print one
-        #print("\nWe have fewer supervised ranges.")
-        #for j, one in enumerate(SUPER(t, x, y))
-        #print("super", j, one)
+r = Range.main(lst, x)
+
+print "\nWe have many unsupervised ranges."
+for index, value in enumerate(r):
+    print "x, %d, %s" %(index + 1, value)
+
+print "=" * 60
+
+print "\nWe have fewer supervised ranges."
+breaks = Superrange.main(r, y)
+for index, value in enumerate(breaks):
+    print "super, %d, {label=%d, most=%f}" %(index, index, value)
+print "\n"
