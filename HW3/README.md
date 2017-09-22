@@ -16,7 +16,7 @@ Write code that reflects over the ranges found by the unsupervised discretizer. 
 
 ## Setup
 
-All the code is run on `python 2.7`.
+All the code is run on `python 2.7`. It also uses `numpy`
 
 ## Running
 
