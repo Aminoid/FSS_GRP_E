@@ -1,9 +1,7 @@
 import math
-import Range as Ra
 import copy
-from Lists import copy as lc
-import Num as NUM
-
+from Num import c
+from Sym import s
 
 class Label:
     def __init__(self, nums, i):
@@ -54,25 +52,21 @@ def main(things,x,y,   nump=None, lessp=None):
     if lessp == None:
         lessp = True
 
-    ## To DO, check if correct
     better = above
     if lessp != None:
         better = below
 
-    what = "sym"
+    what = s()
     z = ent
     if nump == True:
-        what = NUM
+        what = c()
         z = sd
-    #z = nump and sd or ent
-    breaks, ranges = [], Ra.main(things, x)
+    breaks, ranges = [], things
     def data(j):
         return ranges[j-1]._all._all
 
-    #To Do
-    #Correct this
-
     def memo(here, stop, _memo, b4=None, inc=None):
+
         if (stop > here):
             inc = 1
         else:
@@ -80,8 +74,6 @@ def main(things,x,y,   nump=None, lessp=None):
         if (here != stop):
             m = memo(here + inc, stop, _memo)
             b4 = copy.deepcopy(m)
-            #b4 = m
-            #b4 = m
         _memo[here] = what.updates(data(here), y, b4)
         return _memo[here]
 
@@ -112,11 +104,7 @@ def main(things,x,y,   nump=None, lessp=None):
                 breaks[len(breaks)-1] = ranges[hi].hi
         return bin
     combine(0, len(ranges)-1, memo(0, len(ranges)-1, [None]*len(ranges)), 1, 0)
-    return labels(breaks)
-
-
-
-
+    return breaks
 
 if __name__ == "__main__":
     v = [10,9,8,6,'?']

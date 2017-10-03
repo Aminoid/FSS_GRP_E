@@ -1,31 +1,40 @@
+import config
+
+the = config
+
 class s:
     def __init__(self):
         self.n = 0
         self.nk = 0
-        self.counts = []
+        self.counts = {}
         self.most = 0
         self.mode = None
         self._ent = None
-    def __str__(self):
-        return str(self.sd)
 
-def create():
-    return s()
+    def updates(self, lst,f):
+        for _, one in enumerate(lst):
+            self.update(self, f(one))
 
-def updates(lst,f,i):
-    i = i or create()
-    for _, one in enumerate(lst):
-        update(i, f(one))
-    return i
+    def discretize(self, x):
+            r = None
+            if x == the.ignore:
+                return x
+            if not self.bins:
+                return x
+            for b in self.bins:
+                r = b.label
+                if x < b.most:
+                    break
+            return r
 
-def update(i, x):
-    if x != '?':
-        i._ent = None
-        i.n = i.n + 1
-        if not i.counts[x]:
-            i.nk = i.nk + 1
-            i.counts[x] = 0
-        seen = i.counts[x] + 1
-        i.counts[x] = seen
-        if seen > i.most:
-            i.most, i.mode = seen, x
+    def update(self,x):
+        if x != the.ignore:
+            self._ent = None
+            self.n = self.n + 1
+            if not self.counts.get(x):
+                self.nk = self.nk + 1
+                self.counts[x] = 0
+            seen = self.counts[x] + 1
+            self.counts[x] = seen
+            if seen > self.most:
+                self.most, self.mode = seen, x

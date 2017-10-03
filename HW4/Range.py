@@ -1,5 +1,5 @@
 from Sample import create as sc, update as su
-from Num import updates as nu
+from Num import c
 
 class Range:
     def __init__(self, all):
@@ -34,15 +34,14 @@ def nextRange(i):
 def rangeManager(t, x):
     _ = Range1(x, len(t))
     nextRange(_)
-    # TODO
-    _.num = nu(t, _.x)
+    c1 = c()
+    _.num = c1.updates(t, _.x)
     _.hi = _.num.hi
     _.enough = _.size**_.m
     _.epsilon = _.num.sd*_.cohen
     return _
 
 def update(i, one, x):
-    #print x
     su(i._all, one)
     i.n = i.n + 1
     if x > i.hi:
@@ -53,19 +52,12 @@ def update(i, one, x):
     return x
 
 def main(t, x, last=-1):
-    #t = list(filter(lambda v : v != '?', t))
     t = sorted(t, key=lambda v: x(v))
     i = rangeManager(t, x)
     for j, one in enumerate(t):
         x1 = x(one)
-        #print x1
         update(i.now, one, x1)
         if j > 1 and x1 > last and i.now.n > i.enough and i.now.span > i.epsilon and (i.num.n - j) > i.enough  and (i.num.hi - x1) > i.epsilon :
             nextRange(i)
         last = x1
-
     return i.ranges
-
-if __name__ == "__main__":
-    v = [10,9,8,6,1,2,3,4,5,11,12,13]
-    main(v,x,0)

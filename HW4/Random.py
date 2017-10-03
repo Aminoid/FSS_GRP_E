@@ -1,4 +1,3 @@
-
 import math
 
 seed0       = 10013
@@ -31,6 +30,5 @@ def r ():
       randomtable.append(park_miller_randomizer())
   x = park_miller_randomizer()
   i = math.floor(97*x)
-  #print i
   x, randomtable[int(i)] = randomtable[int(i)], x
   return x

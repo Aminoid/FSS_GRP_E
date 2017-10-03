@@ -1,3 +1,7 @@
+import config
+
+the = config
+
 class c:
     def __init__(self):
         self.n = 0
@@ -7,33 +11,31 @@ class c:
         self.hi = -1e32
         self.lo = 1e32
         self.w = 1
-    def __str__(self):
-        return str(self.sd)
 
-def create():
-    return c()
+    def updates(self, t, f = None, all = None):
+        all = all or c()
+        def fun(x):
+            return x
+        f = f or fun
+        for _,one in enumerate(t):
+            all.update(f(one))
+        return all
 
-def updates(t, f, all = None):
-    if all == None:
-        all = c()
-    #print all.lo
-    for _,one in enumerate(t):
-        update(all,f(one))
-    #print all.lo
-    return all
+    def update(self, x):
+        if x != the.ignore:
+            self.n = self.n + 1
+            if x < self.lo:
+                self.lo = x
+            if x > self.hi:
+                self.hi = x
+            delta = x - self.mu
+            self.mu = self.mu + delta/self.n
+            self.m2 = self.m2 + delta*(x-self.mu)
+            if self.n > 1:
+                self.sd = (self.m2/(self.n-1))**0.5
 
-def update(i, x):
-    i.n = i.n + 1
-    if x < i.lo:
-        i.lo = x
-    if x > i.hi:
-        i.hi = x
-    delta = x - i.mu
-    i.mu = i.mu + delta/i.n
-    i.m2 = i.m2 + delta*(x-i.mu)
-    if i.n > 1:
-        i.sd = (i.m2/(i.n-1))**0.5
-    #print i.mu
-    #print i.m2
-    #print i.sd
-    return i
+
+    def norm(self, x):
+        if x == the.ignore:
+            return x
+        return (x - self.lo) / (self.hi - self.lo + 1e-32)
