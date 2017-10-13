@@ -9,13 +9,11 @@ import copy
 def has(branch):
     out = []
     for step in branch:
-        #step = branch[i] if type(branch) == dict else i
         out.append({"attr":step["attr"], "val":step["val"]})
     return out
 
 def have(branches):
     for branch in branches:
-        #branch.has = has(branch)
         branch.append(has(branch))
     return branches
 
@@ -58,7 +56,12 @@ def contrasts(branches,better):
                             out.append({'i':i,'j':j,'ninc':len(inc),'muinc':num2.mu-num1.mu,
                                        'inc':inc,'branch1':branch1[-1],'mu1':num1.mu,
                                        'branch2':branch2[-1],'mu2':num2.mu})
-    return out
+        if len(out) > 0:
+            print ""
+            out = sorted(out, key=lambda x: x['muinc'])
+            print i, 'max mu', out[0]
+            out = sorted(out, key=lambda x: x['ninc'])
+            print i, 'min inc', out[0]
 
 def more(x,y):
     return x > y

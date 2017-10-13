@@ -10,15 +10,18 @@ if __name__ == "__main__":
         sys.exit(0)
     else:
         file = sys.argv[1]
+
+        # Generate and print the tree
         x = TREES.auto(file, "dom")
+        print "The Tree is given below:"
+        TREE.tprint(x)
 
-        #TREE.tprint(x)
         b = CON.branches(x)
-        plan = CON.plans(b)
-        print "The Plans are given below: \n"
-        for i in plan:
-            print i
 
-        print "\nThe monitors are given below: \n"
-        monitor = CON.monitors(b)
-        print monitor
+        #Print the Plans
+        print "\nThe Plans are given below:"
+        CON.plans(b)
+
+        #Print the Monitors
+        print "\nThe Monitors are given below:"
+        CON.monitors(b)
