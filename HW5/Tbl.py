@@ -23,7 +23,6 @@ class when_what_weight_where:
         self.weight = weight
         self.where = where
 
-
 class Tbl:
     def __init__(self, file=False):
         self.rows = []
@@ -42,26 +41,6 @@ class Tbl:
 
         if file:
             self.fromCSV(file)
-
-    def categorize(self, text):
-        spec = [
-            {'when': "$", 'what': Num.c(), 'weight': 1},
-             # 'where': {self.all.get('cols'), self.x.get('cols'), self.all.get('nums'), self.x.get('nums')}},
-            {'when': "%", 'what': Num.c(), 'weight': 1},
-             # 'where': {self.all.get('cols'), self.x.get('cols'), self.all.get('nums'), self.x.get('nums')}},
-            {'when': "<", 'what': Num.c(), 'weight': -1},
-             # 'where': {self.all.get('cols'), self.y.get('cols'), self.all.get('nums'), self.goals, self.less, self.y.get('nums')}},
-            {'when': ">", 'what': Num.c(), 'weight': 1},
-             # 'where': {self.all.get('cols'), self.y.get('cols'), self.all.get('nums'), self.goals, self.more, self.y.get('nums')}},
-            {'when': "!", 'what': Sym.s(), 'weight': 1},
-             # 'where': {self.all.get('cols'), self.y.get('syms'), self.y.get('cols'), self.all.get('syms')}},
-            {'when': "", 'what': Sym.s(), 'weight': 1}
-             # 'where': {self.all.get('cols'), self.x.get('cols'), self.all.get('syms'), self.x.get('syms')}},
-        ]
-
-        for want in spec:
-            if text.find(want.get('when')) > -1:
-                return want.get('what'), want.get('weight')#, want.get('where')
 
     def categories(self, txt):
         spec = [

@@ -4,24 +4,16 @@ import SdTree as TREE
 import sys
 import Tbl
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python hw2.py <csv_file>")
-        sys.exit(0)
-    else:
-        file = sys.argv[1]
+x = TREES.auto("dom")
+TREE.treePrint(x)
+b=CON.branches(x)
+CON.plans(b)
+CON.monitors(b)
 
-        # Generate and print the tree
-        x = TREES.auto(file, "dom")
-        print "The Tree is given below:"
-        TREE.tprint(x)
-
-        b = CON.branches(x)
-
-        #Print the Plans
-        print "\nThe Plans are given below:"
-        CON.plans(b)
-
-        #Print the Monitors
-        print "\nThe Monitors are given below:"
-        CON.monitors(b)
+#if __name__ == "__main__":
+    #if len(sys.argv) != 2:
+    #    print("Usage: python hw2.py <scv_file>")
+    #    sys.exit(0)
+    #else:
+        #file = "/home/rahulgutal4/auto.csv"
+        #TREE(file, "dom")

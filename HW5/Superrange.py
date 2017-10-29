@@ -6,8 +6,8 @@ from Num import c
 from Sym import s
 
 class Label:
-    def __init__(self, nums, i):
-        self.most = nums[i]
+    def __init__(self, num, i):
+        self.most = num
         self.label = i
 
     def __str__(self):
@@ -16,8 +16,8 @@ class Label:
 
 def labels(nums):
     out = []
-    for i in range(0, len(nums)):
-        out.append(Label(nums, i))
+    for i in range(1, len(nums)+1):
+        out.append(Label(nums[i], i))
     return out
 
 def same(_):
@@ -28,9 +28,9 @@ def sd(_):
 
 def ent(i):
     if i._ent == None:
-        e = 0
+        e = 0.0
         for _,f in enumerate(i.counts):
-            e = e - (f/i.n) * math.log((f/i.n), 2)
+            e = e - (float(f)/i.n) * math.log((float(f)/i.n), 2)
         i._ent = e
     return i._ent
 
@@ -43,7 +43,7 @@ def above(x,y):
 def last(x):
     return x[len(x)-1]
 
-def main(things,x,y,   nump=None, lessp=None):
+def main(things,x,y = None,   nump=None, lessp=None):
 
     if y == None:
         y = last
@@ -56,7 +56,7 @@ def main(things,x,y,   nump=None, lessp=None):
 
     ## To DO, check if correct
     better = above
-    if lessp != None:
+    if lessp == True:
         better = below
 
     what = s()
@@ -65,9 +65,9 @@ def main(things,x,y,   nump=None, lessp=None):
         what = c()
         z = sd
     #z = nump and sd or ent
-    breaks, ranges = [], things
+    breaks, ranges = {}, things
     def data(j):
-        return ranges[j-1]._all._all
+        return ranges[j]._all._all
 
     #To Do
     #Correct this
@@ -87,31 +87,32 @@ def main(things,x,y,   nump=None, lessp=None):
 
     def combine(lo, hi, all, bin, lvl):
         best = z(all)
-        lmemo, rmemo = [None]*(hi+1), [None]*(hi+1)
+        lmemo, rmemo = {}, {}
         memo(hi, lo, lmemo)  # summarize i+1 using i
         memo(lo, hi, rmemo)  # summarize i using i+1
-        cut=-1
+        cut=None
         lbest=None
         rbest=None
         for j in range(lo, hi):
             l = lmemo[j]
             r = rmemo[j + 1]
-            tmp = float(l.n / float(all.n)) * z(l) + float(r.n / float(all.n)) * z(r)
+            tmp = (float(l.n) / all.n)*z(l)  + (float(r.n) / all.n)*z(r)
             if (better(tmp, best)):
                 cut = j
                 best = tmp
-                lbest = l
-                rbest = r
+                lbest = copy.deepcopy(l)
+                rbest = copy.deepcopy(r)
 
-        if cut != -1:
+        if cut != None:
             bin = combine(lo, cut, lbest, bin, lvl + 1) + 1
             bin = combine(cut + 1, hi, rbest, bin, lvl + 1)
         else:  # -- no cut found, mark everything "lo" to "hi" as "bin"
-            breaks.append(-10 ^ 32)
-            if ranges[hi].hi > breaks[bin-1]:
-                breaks[len(breaks)-1] = ranges[hi].hi
+            if bin not in breaks:
+                breaks[bin] = -1e32
+            if ranges[hi].hi > breaks[bin]:
+                breaks[bin] = ranges[hi].hi
         return bin
-    combine(0, len(ranges)-1, memo(0, len(ranges)-1, [None]*len(ranges)), 1, 0)
+    combine(1, len(ranges)-1, memo(1, len(ranges)-1, {}), 1, 0)
     return breaks
 
 

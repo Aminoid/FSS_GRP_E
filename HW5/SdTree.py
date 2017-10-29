@@ -118,6 +118,29 @@ def tprint(tr, lvl=0):
       for j in range(len(tr._kids)):
           tprint(tr._kids[j], lvl + 1)
 
+
+def treePrint(tr, lvl=0):
+
+    def pad():
+        return "| " * (lvl)
+
+    def left(x):
+        return "%-20s" % x
+
+    suffix = ""
+    if len(tr._kids) == 0 or lvl == 0:
+        suffix = "n=%s mu=%-.2f sd=%-.2f" % (tr.stats.n, tr.stats.mu, tr.stats.sd)
+    if lvl == 0:
+        print
+        "\n" + suffix
+    else:
+        print
+        left(
+            "{}{} = {}".format(pad(), str(tr.attr) or "", str(tr.val) or "")), '\t:  ', suffix
+    for j in range(len(tr._kids)):
+        treePrint(tr._kids[j], lvl + 1)
+
+
 def test(f, y):
     the.tree_min = 10
     y = y or "dom"
