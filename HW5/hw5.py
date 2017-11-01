@@ -5,9 +5,13 @@ import sys
 import Tbl
 
 x = TREES.auto("dom")
-TREE.treePrint(x)
+TREE.tprint(x)
 b=CON.branches(x)
+print "Number of branches: ", len(b)
+print "********************Plans********************"
 CON.plans(b)
+print
+print "********************Monitors********************"
 CON.monitors(b)
 
 #if __name__ == "__main__":

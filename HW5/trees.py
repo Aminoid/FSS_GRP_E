@@ -10,8 +10,8 @@ def create(f,y):
     t2 = tb1.discretizeRows(y, tb1)
     return TREE.grow(t2,y = t2.dom(tb1))
 
-def auto(file, y):
-    return create(file, y or "dom")
+def auto(y):
+    return create("/home/rahulgutal4/auto.csv", y or "dom")
 
 def pom3a(y):
     return create("/data/POM3A_short.csv", y or "dom")

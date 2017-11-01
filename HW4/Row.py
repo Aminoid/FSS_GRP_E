@@ -6,7 +6,7 @@ the = config
 
 class Row:
     def __init__(self):
-        self.id =  id(self)
+        self.id =  id(self) #ID.new()
         self.cells = []
 
     def update(self, cells, t=False):
@@ -14,7 +14,7 @@ class Row:
             self.cells = cells
             return
         self.cells = copy.deepcopy(cells)
-        for head in t.all.get("cols"):
+        for head in t.all.cols:
             head.what.update(cells[head.pos])
         return self
 
@@ -37,6 +37,13 @@ class Row:
                 if f(row, t):
                     tmp = tmp + 1
         return tmp
+
+    def __str__(self):
+        s=""
+        for x in self.cells:
+            s = s +", "+ str(x)
+        return s
+
 
 if __name__ == "__main__":
     row = Row()

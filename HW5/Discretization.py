@@ -43,19 +43,19 @@ for i, val in enumerate(lst):
 def hw3(lst, x, y):
     r = Range.main(lst, x)
 
-    print "\nWe have many unsupervised ranges."
-    for index, value in enumerate(r):
-        print "x, %d, %s" %(index + 1, value)
+    #print "\nWe have many unsupervised ranges."
+    #for index, value in enumerate(r):
+    #    print "x, %d, %s" %(index + 1, value)
 
-    print "=" * 60
+    #print "=" * 60
 
-    print "\nWe have fewer supervised ranges."
+    #print "\nWe have fewer supervised ranges."
 
     breaks = Superrange.main(r, x, y)
 
-    for index, value in enumerate(breaks):
-        print "super, %d, {label=%d, most=%f}" %(index, index, value)
-    print "\n"
+    #for index, value in enumerate(breaks):
+    #    print "super, %d, {label=%d, most=%f}" %(index, index, value)
+    #print "\n"
 
     return Superrange.labels(breaks)
 

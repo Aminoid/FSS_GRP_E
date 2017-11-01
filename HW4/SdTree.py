@@ -1,11 +1,11 @@
 from __future__ import print_function
+import sys
 import Num as num
 import Lists as lst
 import Tbl as tbl
 import itertools
 import config
 import Tbl
-import sys
 from Tbl import Tbl
 
 the = config
@@ -58,7 +58,7 @@ def order(t, y):
         return KeyVal(xpect(col), col)
 
     out = []
-    for _,h in enumerate(t.x.get("cols")):
+    for _,h in enumerate(t.x.cols):
         out.append(whatif(h,y))
     out = sorted(out, key=lambda x: x.key)
     return lst.collect(out, fun)
@@ -114,9 +114,32 @@ def tprint(tr, lvl=0):
       if lvl == 0:
           print("\n{}".format(suffix))
       else:
+          # must_be = left( "{}{} = {}".format(pad(), tr.attr or "", tr.val or ""))
           print(left("{}{} = {}".format(pad(), str(tr.attr) or "", str(tr.val) or "")), suffix, sep='\t:\t  ')
       for j in range(len(tr._kids)):
           tprint(tr._kids[j], lvl + 1)
+
+
+def treePrint(tr, lvl=0):
+
+    def pad():
+        return "| " * (lvl)
+
+    def left(x):
+        return "%-20s" % x
+
+    suffix = ""
+    if len(tr._kids) == 0 or lvl == 0:
+        suffix = "n=%s mu=%-.2f sd=%-.2f" % (tr.stats.n, tr.stats.mu, tr.stats.sd)
+    if lvl == 0:
+        print
+        "\n" + suffix
+    else:
+        print
+        left(
+            "{}{} = {}".format(pad(), str(tr.attr) or "", str(tr.val) or "")), '\t:  ', suffix
+    for j in range(len(tr._kids)):
+        treePrint(tr._kids[j], lvl + 1)
 
 def sdTree(f, y):
     the.tree_min = 10
@@ -129,8 +152,6 @@ def sdTree(f, y):
 
     tr = grow(t2, y=t2.dom(tb1))
     tprint(tr)
-
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
