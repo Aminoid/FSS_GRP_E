@@ -10,7 +10,7 @@ if __name__ == "__main__":
         sys.exit(0)
     else:
         file = sys.argv[1]
-        x = TREES.auto("dom")
+        x = TREES.auto(file, "dom")
         TREE.tprint(x)
         b=CON.branches(x)
         print "Number of branches: ", len(b)
