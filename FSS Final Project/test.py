@@ -1,0 +1,1 @@
+print("The time taken by {} was {}".format(classifiers[0], 1))
