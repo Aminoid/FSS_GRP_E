@@ -10,5 +10,5 @@ The file 'Multi_class.py' works on the dataset '20NewsGroups'. The code in this 
 The file 'Multi_label.py' works on the dataset 'Reuters-21578'. The code in this file predicts a multiple classes of each document.
 
 To run the project:
-    python Multi_class.py
+    python Multi_class.py,
     python Multi_label.py
