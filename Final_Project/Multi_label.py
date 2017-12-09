@@ -16,8 +16,8 @@ from sklearn.cross_validation import cross_val_score, KFold
 import numpy as np
 from scipy.optimize import differential_evolution
 
-de_iter = 1
-rs_iter = 1
+de_iter = 15
+rs_iter = 100
 
 def evaluate_cross_validation(clf, X, y, cv):
     scores = cross_val_score(clf, X, y, cv=cv, scoring='f1_macro')
