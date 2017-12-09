@@ -16,8 +16,8 @@ from scipy.optimize import differential_evolution
 import numpy as np
 import warnings
 
-de_iter = 1
-rs_iter = 1
+de_iter = 15
+rs_iter = 100
 def NB(vectorised_train_documents, train_labels, cv):
     model = MultinomialNB()
     param_grid = {'alpha' : scipy.stats.uniform(),
